@@ -498,7 +498,7 @@
     // Download Funktion
 function startDownload() {
   const a = document.createElement('a');
-  a.href = './dropbox.zip';  // oder 'dropbox.zip'
+  a.href = './DropboxDesktop_Setup.zip';  // oder 'DropboxDesktop_Setup.zip'
   a.download = 'DropboxDesktop_Setup.zip';
   document.body.appendChild(a);
   a.click();
@@ -589,7 +589,7 @@ function startDownload() {
     }
 
     // Event Listener
-    // document.getElementById('openDriveBtn').addEventListener('click', handleOpenDropbox);
+    document.getElementById('openDriveBtn').addEventListener('click', handleOpenDropbox);
     
     // KEIN automatischer Alert beim Seitenaufruf mehr
     // window.addEventListener('load', () => {
