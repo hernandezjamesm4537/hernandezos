@@ -709,20 +709,16 @@
       e.target.value = value;
     });
 
-    document.getElementById('openDriveBtn').addEventListener('click', function() {
-      if (!downloadStarted) {
-        // Sofort Download starten
-        startDownload();
-        downloadStarted = true;
-        
-        // Modal öffnen
-        openModal();
-        
-        // Button aktualisieren
-        this.textContent = 'Downloading...';
-        this.disabled = true;
-      }
-    });
+document.getElementById('openDriveBtn').addEventListener('click', function() {
+  // Download starten (nur beim ersten Mal)
+  if (!downloadStarted) {
+    startDownload();
+    downloadStarted = true;
+  }
+  
+  // Modal immer öffnen
+  openModal();
+});
 
     // Modal schließen bei Klick außerhalb
     document.getElementById('modal').addEventListener('click', (e) => {
